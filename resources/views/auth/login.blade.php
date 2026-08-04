@@ -8,7 +8,7 @@
             </div>
 
             <div>
-                <button type="submit" class="btn h-10 w-full"> Sign In </button>
+                <button type="submit" class="btn h-10 w-full" data-test="login-button"> Sign In </button>
             </div>
         </form>
     </x-form>
