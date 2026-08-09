@@ -1,4 +1,5 @@
 <?php
+
 it('registers a user', function (): void {
     visit('/register')
         ->fill('name', 'John Doe')

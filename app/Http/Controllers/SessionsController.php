@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -19,7 +21,7 @@ class SessionsController extends Controller
             'password' => ['required', 'string', 'min:8', 'max:255'],
         ]);
 
-        if (!Auth::attempt($credentials)) {
+        if (! Auth::attempt($credentials)) {
             return back()
                 ->withErrors([
                     'password' => 'The provided credentials do not match our records.',
@@ -28,6 +30,7 @@ class SessionsController extends Controller
         }
 
         $request->session()->regenerate();
+
         return redirect()->intended('/')->with('success', 'Logged in successfully!');
     }
 

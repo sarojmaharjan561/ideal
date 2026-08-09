@@ -15,7 +15,6 @@ it('login a user', function (): void {
     $this->assertAuthenticated();
 });
 
-
 it('logout a user', function (): void {
 
     $user = User::factory()->create();

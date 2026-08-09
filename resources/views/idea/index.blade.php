@@ -5,6 +5,26 @@
             <p class="text-muted-foreground text-sm mt-2">Manage your ideas and share them with the world.</p>
         </header>
 
+        <div>
+            
+            <a href="/ideas" class="btn {{ request()->has('status') ? 'btn-outlined' : '' }}">
+                All 
+                <span class="text-sm pl-3">
+                        {{ $statusCounts->get('all') }}
+                </span>
+            </a>
+
+            @foreach (App\IdeaStatus::cases() as $status)
+                <a href="/ideas?status={{ $status->value }}" class="btn {{ request('status') === $status->value ? '' : 'btn-outlined' }}">
+                    {{ $status->label() }} 
+                    <span class="text-sm pl-3">
+                        {{ $statusCounts->get($status->value) }}
+                    </span>
+                </a>
+            @endforeach
+            
+        </div>
+
         <div class="mt-10 text-muted-foreground">
             <div class="grid md:grid-cols-2 gap-6">
                 @forelse ($ideas as $idea)
