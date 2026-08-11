@@ -3,6 +3,15 @@
         <header class="py-8 md:py-12">
             <h1 class="text-3xl font-bold">Ideas</h1>
             <p class="text-muted-foreground text-sm mt-2">Manage your ideas and share them with the world.</p>
+
+            <x-card 
+                x-data
+                @click="$dispatch('open-modal','create-idea')"
+                is="button" 
+                type="button"
+                class="mt-10 cursor-pointer h-32 w-full text-left">
+                <p>what an idea</p>
+            </x-card>
         </header>
 
         <div>
@@ -22,7 +31,7 @@
                     </span>
                 </a>
             @endforeach
-            
+
         </div>
 
         <div class="mt-10 text-muted-foreground">
@@ -49,5 +58,9 @@
                 @endforelse
             </div>
         </div>
+
+        <x-modal name="create-idea" title="New Idea">
+            <p>I'm a modal </p>
+        </x-modal>
     </div>
 </x-layout>
