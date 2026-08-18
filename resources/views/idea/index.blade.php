@@ -11,7 +11,7 @@
                 type="button"
                 data-test="create-idea-button"
                 class="mt-10 cursor-pointer h-32 w-full text-left">
-                <p>what an idea</p>
+                <p>What's your idea</p>
             </x-card>
         </header>
 
