@@ -22,7 +22,7 @@ class IdeaController extends Controller
 
         $ideas = $user
             ->ideas()
-            ->when(in_array($request->status, IdeaStatus::values()), fn ($query) => $query->where('status', $request->status))
+            ->when(in_array($request->status, IdeaStatus::values()), fn($query) => $query->where('status', $request->status))
             ->latest()
             ->get();
 
