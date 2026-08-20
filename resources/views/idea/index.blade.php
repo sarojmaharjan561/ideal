@@ -115,7 +115,7 @@
 
                             <template x-for="(link,index) in links">
                                 <div class="flex gap-x-2 items-center"> 
-                                    <input class="input flex-1" type="text" name="links[]" x-model="link" disabled>
+                                    <input class="input flex-1" type="text" name="links[]" x-model="link" readonly>
                                     <button
                                         type="button"
                                         @click="links.splice(index,1)"
