@@ -113,9 +113,9 @@
                         <fieldset class="space-y-3">
                             <legend class="label">Links</legend>
 
-                            <template x-for="(link,index) in links">
+                            <template x-for="(link,index) in links" :key="link">
                                 <div class="flex gap-x-2 items-center"> 
-                                    <input class="input flex-1" type="text" name="links[]" x-model="link" readonly>
+                                    <input class="input" type="text" name="links[]" x-model="link" readonly>
                                     <button
                                         type="button"
                                         @click="links.splice(index,1)"
