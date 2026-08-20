@@ -22,7 +22,7 @@ class IdeaController extends Controller
 
         $ideas = $user
             ->ideas()
-            ->when(in_array($request->status, IdeaStatus::values()), fn($query) => $query->where('status', $request->status))
+            ->when(in_array($request->status, IdeaStatus::values()), fn ($query) => $query->where('status', $request->status))
             ->latest()
             ->get();
 
@@ -45,9 +45,13 @@ class IdeaController extends Controller
      */
     public function store(StoreIdeaRequest $request)
     {
-        Auth::user()->ideas()->create($request->validated());
+        $idea = Auth::user()->ideas()->create($request->safe()->except('steps'));
 
-        return to_route('ideas.index')
+        $idea->steps()->createMany(
+            collect($request->steps)->map(fn ($step) => ['description' => $step])
+        );
+
+        return to_route('idea.index')
             ->with('success', 'Idea Created Succesfully!');
     }
 
@@ -84,6 +88,6 @@ class IdeaController extends Controller
     {
         $idea->delete();
 
-        return redirect()->route('ideas.index')->with('success', 'Idea deleted successfully!');
+        return redirect()->route('idea.index')->with('success', 'Idea deleted successfully!');
     }
 }

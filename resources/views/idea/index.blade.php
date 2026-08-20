@@ -38,7 +38,7 @@
         <div class="mt-10 text-muted-foreground">
             <div class="grid md:grid-cols-2 gap-6">
                 @forelse ($ideas as $idea)
-                    <x-card href="{{ route('ideas.show', $idea) }}" class="hover:bg-accent hover:text-foreground transition-colors">
+                    <x-card href="{{ route('idea.show', $idea) }}" class="hover:bg-accent hover:text-foreground transition-colors">
                         <h3 class="text-foreground text-lg">{{ $idea->title }}</h3>
 
                         <div class="mt-1">
@@ -64,11 +64,13 @@
             <form 
                 x-data="{
                     status:'pending',
+                    newStep:'',
+                    steps:[],
                     newLink:'',
                     links:[]
                     }" 
                 method="POST" 
-                action="{{ route('ideas.store') }}">
+                action="{{ route('idea.store') }}">
                 @csrf
                 <div class="space-y-6">
                     <x-form.field
@@ -108,6 +110,47 @@
                         placeholder="Describe your idea..."
                         autofocus
                     />
+                    
+                    <div>
+                        <fieldset class="space-y-3">
+                            <legend class="label">Actionable Steps</legend>
+
+                            <template x-for="(step,index) in steps" :key="step">
+                                <div class="flex gap-x-2 items-center"> 
+                                    <input class="input" type="text" name="steps[]" x-model="step" readonly>
+                                    <button
+                                        type="button"
+                                        @click="steps.splice(index,1)"
+                                        aria-label="Remove this step"
+                                        class="form-muted-icon"
+                                    >
+                                        <span class="text-xl">X</span>
+                                    </button>
+                                <div>
+                            </template>
+
+                            <div class="flex gap-x-2 items-center"> 
+                                <input 
+                                    x-model="newStep"
+                                    id="new-step"
+                                    data-test="new-step"
+                                    placeholder="Actionable steps"
+                                    class="input flex-1"
+                                    spellcheck="false"
+                                >
+                                <button
+                                    type="button"
+                                    @click="steps.push(newStep.trim()); newStep='';"
+                                    :disabled="newStep.trim().length === 0"
+                                    aria-label="Add new link"
+                                    class="form-muted-icon"
+                                    data-test="submit-new-step-button"
+                                >
+                                    <span class="text-4xl">+</span>
+                                </button>
+                            </div>
+                        </fieldset>
+                    </div>
 
                     <div>
                         <fieldset class="space-y-3">

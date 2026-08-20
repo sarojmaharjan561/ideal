@@ -21,6 +21,6 @@ it('create a idea', function () {
         'title' => 'Some Example Title',
         'status' => 'completed',
         'description' => 'Some Example Description',
-        'links' => ['https://laracast.com', 'https://laravel.com']
+        'links' => ['https://laracast.com', 'https://laravel.com'],
     ]);
 });
