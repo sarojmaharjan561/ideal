@@ -21,28 +21,13 @@ label {
 
 .input:focus-visible {
     outline: 0;
-    box-shadow: 0 0 0 calc(var(--spacing) * 0.5) var(--color-background) 0 0 0
-        calc(var(--spacing) * 1) var(--color-primary);
+    /* CORREGIDO: Se agregaron comas para separar las dos sombras */
+    box-shadow:
+        0 0 0 calc(var(--spacing) * 0.5) var(--color-background),
+        0 0 0 calc(var(--spacing) * 1) var(--color-primary);
 }
 
-input[type="file"]::file-selector-button:hover {
-    opacity: 0.9;
-}
-
-.error {
-    color: var(--color-red-500);
-    font-size: var(--text-sm);
-}
-
-.form-muted-icon {
-    color: var(--color-muted-foreground);
-}
-
-.form-muted-icon:hover {
-    color: var(--color-foreground);
-}
-
-@media (min-width: var(--breakpoint-md)) {
+@media (min-width: 48rem) {
     .input {
         font-size: var(--text-sm);
     }
@@ -67,11 +52,50 @@ input[type="file"]::file-selector-button:hover {
 
 .textarea:focus-visible {
     outline: 0;
-    box-shadow: 0 0 0 calc(var(--spacing) * 0.5) var(--color-background) 0 0 0
-        calc(var(--spacing) * 1) var(--color-primary);
+    /* CORREGIDO: Se agregaron comas para separar las dos sombras */
+    box-shadow:
+        0 0 0 calc(var(--spacing) * 0.5) var(--color-background),
+        0 0 0 calc(var(--spacing) * 1) var(--color-primary);
 }
 
 .label {
     display: block;
     font-size: var(--text-sm);
+}
+
+input[type="file"] {
+    display: block;
+    width: 100%;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: var(--color-foreground);
+}
+
+input[type="file"]::file-selector-button {
+    margin-right: calc(var(--spacing) * 4);
+    padding: calc(var(--spacing) * 2) calc(var(--spacing) * 4);
+    border-radius: calc(var(--spacing) * 2);
+    border-width: 0;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+    background-color: var(--color-primary);
+    color: rgb(var(--color-background));
+}
+
+input[type="file"]::file-selector-button:hover {
+    opacity: 0.9;
+}
+
+.error {
+    font-size: var(--text-sm);
+    color: var(--color-red-600);
+}
+
+.form-muted-icon {
+    color: var(--color-muted-foreground);
+}
+
+.form-muted-icon:hover {
+    color: var(--color-foreground);
 }
