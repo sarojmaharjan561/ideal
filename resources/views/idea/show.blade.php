@@ -7,7 +7,14 @@
             </a>
 
             <div class="gap-x-3 flex items-center">
-                <button class="btn btn-outlined"> Edit </button>
+                <button 
+                    x-data
+                    class="btn btn-outlined"
+                    data-test="edit-idea-button"
+                    @click="$dispatch('open-modal','edit-idea')"
+                    >
+                    Edit 
+                </button>
 
                 <form action="{{ route('idea.destroy', $idea) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this idea?');">
                     @csrf
@@ -37,12 +44,14 @@
                 </div>
             </div>  
 
-            <x-card class="mt-6">
-                <div class="text-foreground  max-w-none cursor-pointer">
-                    {{ $idea->description }}
-                </div>
-                <p class="text-sm text-muted-foreground mt-4">By {{ $idea->user->name }}</p>
-            </x-card>
+            @if ($idea->description)
+                <x-card class="mt-6">
+                    <div class="text-foreground  max-w-none cursor-pointer">
+                        {{ $idea->description }}
+                    </div>
+                    <p class="text-sm text-muted-foreground mt-4">By {{ $idea->user->name }}</p>
+                </x-card>
+            @endif
 
             @if($idea->steps->count())
                 <div>
@@ -87,5 +96,6 @@
                 </div>  
             @endif
         </div>
+        <x-idea.modal :idea="$idea"/>
     </div>
 </x-layout>

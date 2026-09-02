@@ -1,22 +1,28 @@
-<x-modal name="create-idea" title="New Idea">
+@props(['idea'=> new app\Models\Idea()])
+
+<x-modal name="{{ $idea->exists ? 'edit-idea' : 'create-idea' }}" title="{{ $idea->exists ? 'Edit Idea' : 'New Idea' }}">
     <form 
         x-data="{
-            status:'pending',
+            status:@js(old('status', $idea->status->value )),
             newStep:'',
-            steps:[],
-            newLink:'',
+            steps:@js(old('steps', $idea->steps->map(fn($step) => $step->description))),
+            newLink:@js(old('newLink',$idea->links ?? [])),
             links:[]
             }" 
         method="POST" 
-        action="{{ route('idea.store') }}"
-        enctype="multipart/form-data"
+        action="{{ $idea->exists? route('idea.update', $idea) : route('idea.store') }}"
+        {{-- enctype="multipart/form-data" --}}
     >
         @csrf
+        @if ($idea->exists)
+            @method('PATCH')
+        @endif 
         <div class="space-y-6">
             <x-form.field
                 label="Title"
                 name="title"
                 placeholder="Enter an idea for your title "
+                :value="$idea->title"
                 required
                 autofocus
             />
@@ -48,11 +54,24 @@
                 name="description"
                 type="textarea"
                 placeholder="Describe your idea..."
+                :value="$idea->description"
                 autofocus
             />
 
             <div class="space-y-2">
                 <label for="image" class="label">Feature Image</label>
+                @if ($idea->image_path)
+                    <div class="space-y-2">
+                        <img src="{{ asset('storage/'.$idea->image_path) }}" alt="{{ $idea->title }}" class="w-full h-48 object-cover rounded-lg">
+                        <button 
+                            class="btn btn-outlined h-10 w-full"
+                            form="delete-image-form"
+                            data-test="remove-image-button"
+                        >
+                            Remove Image
+                        </button>
+                    </div>
+                @endif
                 <input type="file" name="image" accept="image/*">
                 <x-form.error name="image" />
             </div>
@@ -143,9 +162,16 @@
 
             <div class="flex justify-end gap-x-5">
                 <button type="button" @click="$dispatch('close-modal')">Cancel</button>
-                <button type="submit" class="btn">Create</button>
+                <button type="submit" class="btn">{{ $idea->exists ? 'Update' : 'Create' }}</button>
             </div>
             
         </div>
     </form>
+    
+    @if ($idea->image_path)        
+        <form method="POST" action="{{ route('idea.image.destroy',$idea) }}" id="delete-image-form">
+            @csrf
+            @method('DELETE')
+        </form>
+    @endif
 </x-modal>
