@@ -21,8 +21,7 @@
             name="{{ $name }}" 
             type="{{ $type }}" 
             value="{{ old($name, $value) }}"        
-            {{ $attributes }}
-            required 
+            {{ $attributes }}             
         >
     @endif
 
