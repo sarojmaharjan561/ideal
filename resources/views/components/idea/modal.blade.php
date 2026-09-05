@@ -11,7 +11,7 @@
             }" 
         method="POST" 
         action="{{ $idea->exists? route('idea.update', $idea) : route('idea.store') }}"
-        {{-- enctype="multipart/form-data" --}}
+        enctype="multipart/form-data"
     >
         @csrf
         @if ($idea->exists)
