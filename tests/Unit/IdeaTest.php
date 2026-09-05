@@ -15,7 +15,7 @@ test('it can have steps', function () {
     expect($idea->steps)->toBeEmpty();
 
     $idea->steps()->create([
-        'title' => 'To do something',
+        'description' => 'To do something',
     ]);
 
     expect($idea->fresh()->steps)->toHaveCount(1);

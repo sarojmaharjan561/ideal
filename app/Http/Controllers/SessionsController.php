@@ -31,7 +31,7 @@ class SessionsController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended('/')->with('success', 'Logged in successfully!');
+        return redirect()->intended(route('idea.index'))->with('success', 'Logged in successfully!');
     }
 
     public function destroy(Request $request)
@@ -40,6 +40,6 @@ class SessionsController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/')->with('success', 'Logged out successfully!');
+        return redirect()->route('idea.index')->with('success', 'Logged out successfully!');
     }
 }
