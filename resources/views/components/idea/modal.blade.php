@@ -6,8 +6,8 @@
             status:@js(old('status', $idea->status->value )),
             newStep:'',
             steps:@js(old('steps', $idea->steps->map->only(['id','description','completed']))),
-            newLink:@js(old('newLink',$idea->links ?? [])),
-            links:[]
+            links:@js(old('links',$idea->links ?? [])),
+            newLink:''
             }" 
         method="POST" 
         action="{{ $idea->exists? route('idea.update', $idea) : route('idea.store') }}"
