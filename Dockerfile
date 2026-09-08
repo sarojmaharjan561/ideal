@@ -61,4 +61,4 @@ COPY docker/supervisord.conf /etc/supervisord.conf
 
 EXPOSE 8080
 
-CMD ["sh", "-c", "envsubst '$PORT' < /etc/nginx/http.d/default.conf.template > /etc/nginx/http.d/default.conf && php artisan config:cache && php artisan migrate --force && supervisord -c /etc/supervisord.conf"]
+CMD ["sh", "-c", "echo \"PORT is set to: $PORT\" && envsubst '$PORT' < /etc/nginx/http.d/default.conf.template > /etc/nginx/http.d/default.conf && echo 'nginx config generated:' && cat /etc/nginx/http.d/default.conf && php artisan config:cache && php artisan migrate --force && echo 'Starting supervisord now...' && exec supervisord -c /etc/supervisord.conf"]
