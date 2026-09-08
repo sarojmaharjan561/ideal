@@ -31,6 +31,7 @@ RUN apk add --no-cache \
         nginx \
         supervisor \
         sqlite \
+        sqlite-dev \
         gettext \
         libpng-dev \
         libzip-dev \
