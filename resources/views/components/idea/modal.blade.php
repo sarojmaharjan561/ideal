@@ -43,7 +43,7 @@
                         </button>
                     @endforeach
 
-                    <input type="hidden" name="status" :value="status" class="input">
+                    <input type="hidden" id="status" name="status" :value="status" class="input">
 
                 </div>
                 <x-form.error name="status" />
@@ -72,7 +72,7 @@
                         </button>
                     </div>
                 @endif
-                <input type="file" name="image" accept="image/*">
+                <input type="file" id="image" name="image" accept="image/*">
                 <x-form.error name="image" />
             </div>
             
