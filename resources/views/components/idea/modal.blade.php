@@ -21,7 +21,7 @@
             <x-form.field
                 label="Title"
                 name="title"
-                placeholder="Enter an idea for your title "
+                placeholder="Enter title for your idea"
                 :value="$idea->title"
                 required
                 autofocus
